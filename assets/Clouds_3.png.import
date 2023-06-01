@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwmbj6f66h24d"
-path="res://.godot/imported/squares.png-c7aea8631b6d35eaa972587d985c58b8.ctex"
+uid="uid://cru8m24mmbis0"
+path="res://.godot/imported/Clouds_3.png-78b1ca9e7f21968289260d6b30b0364c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scene-manager/shader_patterns/squares.png"
-dest_files=["res://.godot/imported/squares.png-c7aea8631b6d35eaa972587d985c58b8.ctex"]
+source_file="res://assets/Clouds_3.png"
+dest_files=["res://.godot/imported/Clouds_3.png-78b1ca9e7f21968289260d6b30b0364c.ctex"]
 
 [params]
 

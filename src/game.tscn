@@ -1,3 +1,47 @@
-[gd_scene format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=10 format=3 uid="uid://di8g8e6s34cik"]
+
+[ext_resource type="Script" path="res://src/game.gd" id="1_8c2rl"]
+[ext_resource type="Script" path="res://src/CloudSpawner.gd" id="2_eg7qd"]
+[ext_resource type="Texture2D" uid="uid://b7n2emce1ca4c" path="res://assets/Env_Ocean.png" id="4_s2340"]
+[ext_resource type="Texture2D" uid="uid://dehi3488um2lq" path="res://assets/Env_Props.png" id="5_8xjbm"]
+[ext_resource type="Texture2D" uid="uid://cvjnapar8aiws" path="res://assets/Env_Bridge.png" id="5_kctn3"]
+[ext_resource type="PackedScene" uid="uid://cvhker42uq0ou" path="res://src/fisher/fisher.tscn" id="7_4yahf"]
+[ext_resource type="PackedScene" uid="uid://b0j3c586slsj" path="res://src/ui/system_time.tscn" id="8_4y4hg"]
+[ext_resource type="PackedScene" uid="uid://cphb2pftds2ol" path="res://src/world/cloud.tscn" id="8_028dh"]
+[ext_resource type="PackedScene" uid="uid://csuuck2g01ftq" path="res://src/world/sun.tscn" id="10_t4h8g"]
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_8c2rl")
+
+[node name="Marker2D" type="Marker2D" parent="." node_paths=PackedStringArray("timer")]
+position = Vector2(316, -98)
+script = ExtResource("2_eg7qd")
+cloud = ExtResource("8_028dh")
+timer = NodePath("CloudTimer")
+
+[node name="CloudTimer" type="Timer" parent="Marker2D"]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="Sun" parent="." instance=ExtResource("10_t4h8g")]
+
+[node name="Ocean" type="Sprite2D" parent="."]
+texture = ExtResource("4_s2340")
+
+[node name="Land" type="Sprite2D" parent="."]
+texture = ExtResource("5_kctn3")
+
+[node name="Props" type="Sprite2D" parent="."]
+texture = ExtResource("5_8xjbm")
+
+[node name="SystemTime" parent="Props" instance=ExtResource("8_4y4hg")]
+offset_left = 70.0
+offset_top = -4.0
+offset_right = 110.0
+offset_bottom = 36.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Fisher" parent="." instance=ExtResource("7_4yahf")]
+position = Vector2(74, -10)

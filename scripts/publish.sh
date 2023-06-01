@@ -5,7 +5,7 @@
 # github-cli
 # butler
 
-GAME="##VAR_GAME_NAME"
+GAME="fishing-the-game"
 VERSION="$1"
 
 ARGS=("$@")

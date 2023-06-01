@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwmbj6f66h24d"
-path="res://.godot/imported/squares.png-c7aea8631b6d35eaa972587d985c58b8.ctex"
+uid="uid://ds4r6ciiv7xjb"
+path="res://.godot/imported/Char.png-79cbaf98009447a207780e8be8c508d2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scene-manager/shader_patterns/squares.png"
-dest_files=["res://.godot/imported/squares.png-c7aea8631b6d35eaa972587d985c58b8.ctex"]
+source_file="res://assets/Char.png"
+dest_files=["res://.godot/imported/Char.png-79cbaf98009447a207780e8be8c508d2.ctex"]
 
 [params]
 
