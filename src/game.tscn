@@ -1,14 +1,50 @@
-[gd_scene load_steps=10 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=15 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_8c2rl"]
 [ext_resource type="Script" path="res://src/CloudSpawner.gd" id="2_eg7qd"]
 [ext_resource type="Texture2D" uid="uid://b7n2emce1ca4c" path="res://assets/Env_Ocean.png" id="4_s2340"]
-[ext_resource type="Texture2D" uid="uid://dehi3488um2lq" path="res://assets/Env_Props.png" id="5_8xjbm"]
 [ext_resource type="Texture2D" uid="uid://cvjnapar8aiws" path="res://assets/Env_Bridge.png" id="5_kctn3"]
 [ext_resource type="PackedScene" uid="uid://cvhker42uq0ou" path="res://src/fisher/fisher.tscn" id="7_4yahf"]
+[ext_resource type="Texture2D" uid="uid://cij6buv5jetbe" path="res://assets/Bucket.png" id="7_qq7sf"]
 [ext_resource type="PackedScene" uid="uid://b0j3c586slsj" path="res://src/ui/system_time.tscn" id="8_4y4hg"]
 [ext_resource type="PackedScene" uid="uid://cphb2pftds2ol" path="res://src/world/cloud.tscn" id="8_028dh"]
 [ext_resource type="PackedScene" uid="uid://csuuck2g01ftq" path="res://src/world/sun.tscn" id="10_t4h8g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7xdhs"]
+atlas = ExtResource("4_s2340")
+region = Rect2(0, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xre2o"]
+atlas = ExtResource("4_s2340")
+region = Rect2(480, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ccfdn"]
+atlas = ExtResource("4_s2340")
+region = Rect2(960, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qyoox"]
+atlas = ExtResource("4_s2340")
+region = Rect2(1440, 0, 480, 270)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lm0s0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7xdhs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xre2o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ccfdn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qyoox")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_8c2rl")
@@ -26,16 +62,20 @@ autostart = true
 
 [node name="Sun" parent="." instance=ExtResource("10_t4h8g")]
 
-[node name="Ocean" type="Sprite2D" parent="."]
-texture = ExtResource("4_s2340")
+[node name="Ocean" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_lm0s0")
+autoplay = "default"
 
 [node name="Land" type="Sprite2D" parent="."]
 texture = ExtResource("5_kctn3")
 
-[node name="Props" type="Sprite2D" parent="."]
-texture = ExtResource("5_8xjbm")
+[node name="Bucket" type="Sprite2D" parent="Land"]
+position = Vector2(72, 9)
+texture = ExtResource("7_qq7sf")
+hframes = 3
 
-[node name="SystemTime" parent="Props" instance=ExtResource("8_4y4hg")]
+[node name="SystemTime" parent="Land" instance=ExtResource("8_4y4hg")]
+visible = false
 offset_left = 70.0
 offset_top = -4.0
 offset_right = 110.0
@@ -44,4 +84,3 @@ offset_bottom = 36.0
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Fisher" parent="." instance=ExtResource("7_4yahf")]
-position = Vector2(74, -10)

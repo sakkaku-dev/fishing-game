@@ -54,11 +54,13 @@ def merge_images(images, max_columns=-1, use_max_sizes=False, gap=0):
     if not use_max_sizes:
         for w in widths:
             if w != width:
+                print(images)
                 print('Width of one image is not the same', widths)
                 exit()
 
         for h in heights:
             if h != height:
+                print(images)
                 print('Height of one image is not the same', heights)
                 exit()
 
