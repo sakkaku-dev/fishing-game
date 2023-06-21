@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://13h88mqj3vqq"]
+
+[ext_resource type="Script" path="res://src/world/water.gd" id="1_kt6dd"]
+[ext_resource type="PackedScene" uid="uid://g2ccwyesdxtk" path="res://src/world/water_spring.tscn" id="2_5ag50"]
+
+[node name="Water" type="Node2D" node_paths=PackedStringArray("polygon")]
+script = ExtResource("1_kt6dd")
+water_spring_scene = ExtResource("2_5ag50")
+polygon = NodePath("Polygon2D")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
