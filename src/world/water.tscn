@@ -1,11 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://13h88mqj3vqq"]
+[gd_scene load_steps=6 format=3 uid="uid://13h88mqj3vqq"]
 
 [ext_resource type="Script" path="res://src/world/water.gd" id="1_kt6dd"]
 [ext_resource type="PackedScene" uid="uid://g2ccwyesdxtk" path="res://src/world/water_spring.tscn" id="2_5ag50"]
+[ext_resource type="Shader" path="res://src/world/water.gdshader" id="3_an1qq"]
+[ext_resource type="Script" path="res://src/world/SmoothPath2D.gd" id="4_vjvyh"]
 
-[node name="Water" type="Node2D" node_paths=PackedStringArray("polygon")]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sswdk"]
+shader = ExtResource("3_an1qq")
+shader_parameter/tint = Color(0.329412, 0.54902, 0.694118, 1)
+
+[node name="Water" type="Node2D" node_paths=PackedStringArray("polygon", "border")]
 script = ExtResource("1_kt6dd")
 water_spring_scene = ExtResource("2_5ag50")
 polygon = NodePath("Polygon2D")
+border = NodePath("SmoothPath")
+spring_count = 50
+spring_offset = 10
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
+material = SubResource("ShaderMaterial_sswdk")
+polygon = PackedVector2Array(45, 26, 253, 17, 418, 65, 192, 126, -23, 70)
+
+[node name="SmoothPath" type="Path2D" parent="."]
+script = ExtResource("4_vjvyh")
+spline_length = 5.0

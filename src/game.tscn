@@ -78,4 +78,4 @@ offset_bottom = 36.0
 visible = false
 
 [node name="Water" parent="." instance=ExtResource("8_y5vi0")]
-position = Vector2(-225, 0)
+position = Vector2(-216, 0)

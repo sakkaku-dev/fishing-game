@@ -2,10 +2,12 @@
 
 [ext_resource type="Script" path="res://src/world/water_spring.gd" id="1_t6dlj"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_lpyss"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ofx6h"]
+size = Vector2(10, 5)
 
-[node name="WaterSpring" type="Node2D"]
+[node name="WaterSpring" type="Area2D" node_paths=PackedStringArray("collision")]
 script = ExtResource("1_t6dlj")
+collision = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_lpyss")
+shape = SubResource("RectangleShape2D_ofx6h")
