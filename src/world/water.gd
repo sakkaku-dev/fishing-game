@@ -7,30 +7,44 @@ extends Node2D
 @export var polygon: Polygon2D
 @export var border: SmoothPath
 
+@export_category("Water Waves")
+@export var waves_count := 7
+@export var wave_max_height := 5
+
+@export_category("Water Movement")
 @export var spread := 0.005
 @export var stiffness := 0.005
 @export var dampening := 0.98
 
+@export_category("Water Springs / Size")
 @export var spring_count := 20
 @export var spring_offset := 20
 @export var height := 100
 
 var springs = []
+var inside_water = []
+var time = 0
 
 func _ready():
 	for i in range(spring_count):
 		var x = i * spring_offset
 		var spring = water_spring_scene.instantiate() as WaterSpring
 		spring.position = Vector2(x, 0)
+		spring.body_entered.connect(func(body): splash(i, body))
 		springs.append(spring)
 		add_child(spring)
 		
+		spring.position.y = spring.target_height + _wave(i)
+		
 		if i == 0: # springs are sharing the collision shape
 			spring.set_collision_width(spring_offset)
-		
-	splash(spring_count/2, 5000)
 
+func _wave(x):
+	return sin(1.2 * time + x) * 5
+	
 func _physics_process(delta):
+	time += delta
+	
 	for _x in range(5):
 		for i in range(springs.size()):
 			var spring = springs[i]
@@ -45,8 +59,9 @@ func _physics_process(delta):
 				var next_spring = springs[i + 1]
 				var d = next_spring.position.y - spring.position.y
 				forceFromRight = spread * d
-				
-			var height_offset = spring.target_height - spring.position.y
+			
+			var target = spring.target_height + _wave(i)
+			var height_offset = target - spring.position.y
 			var forceToBaseline = stiffness * height_offset
 			
 			var force = forceFromLeft + forceFromRight + forceToBaseline
@@ -80,6 +95,13 @@ func _spring_positions():
 		result.append(spring.position)
 	return result
 
-func splash(index, speed):
-	if index >= 0 and index < springs.size():
-		springs[index].velocity = 10
+func splash(index, body: CharacterBody2D):
+	if body in inside_water:
+		return
+	
+	if index < 0 or index >= springs.size():
+		return
+		
+	var spring = springs[index]
+	inside_water.append(body)
+	spring.velocity = 5

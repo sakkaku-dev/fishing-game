@@ -11,3 +11,4 @@ var mass := 1.0
 func set_collision_width(width):
 	var shape = collision.shape as RectangleShape2D
 	shape.size.x = width
+
