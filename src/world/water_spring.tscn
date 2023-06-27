@@ -6,8 +6,8 @@
 size = Vector2(10, 5)
 
 [node name="WaterSpring" type="Area2D" node_paths=PackedStringArray("collision")]
-collision_layer = 0
-collision_mask = 32
+collision_layer = 32
+collision_mask = 2
 script = ExtResource("1_t6dlj")
 collision = NodePath("CollisionShape2D")
 

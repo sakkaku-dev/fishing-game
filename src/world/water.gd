@@ -8,8 +8,7 @@ extends Node2D
 @export var border: SmoothPath
 
 @export_category("Water Waves")
-@export var waves_count := 7
-@export var wave_max_height := 5
+@export var wave_max_height := 3
 
 @export_category("Water Movement")
 @export var spread := 0.005
@@ -40,14 +39,14 @@ func _ready():
 			spring.set_collision_width(spring_offset)
 
 func _wave(x):
-	return sin(1.2 * time + x) * 5
+	return sin(1.2 * time + x) * wave_max_height
 	
 func _physics_process(delta):
 	time += delta
 	
 	for _x in range(5):
 		for i in range(springs.size()):
-			var spring = springs[i]
+			var spring = springs[i] as WaterSpring
 			var forceFromLeft = 0
 			var forceFromRight = 0
 			

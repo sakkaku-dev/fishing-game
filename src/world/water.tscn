@@ -7,7 +7,15 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sswdk"]
 shader = ExtResource("3_an1qq")
-shader_parameter/tint = Color(0.329412, 0.54902, 0.694118, 1)
+shader_parameter/tint = Color(0.294118, 0.454902, 0.796078, 1)
+shader_parameter/waveSmoothing = 0.1
+shader_parameter/mainWaveSpeed = 2.5
+shader_parameter/mainWaveFrequency = 20.0
+shader_parameter/mainWaveAmplitude = 0.005
+shader_parameter/foamSize = 0.0025
+shader_parameter/sfoamStrength = 0.5
+shader_parameter/foamSpeed = null
+shader_parameter/foamScale = null
 
 [node name="Water" type="Node2D" node_paths=PackedStringArray("polygon", "border")]
 script = ExtResource("1_kt6dd")
@@ -19,8 +27,9 @@ spring_offset = 10
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 material = SubResource("ShaderMaterial_sswdk")
-polygon = PackedVector2Array(45, 26, 253, 17, 418, 65, 192, 126, -23, 70)
+polygon = PackedVector2Array(45, 26, 253, 17, 418, 65, 365, 125, 192, 126, 10, 124, -23, 70)
 
 [node name="SmoothPath" type="Path2D" parent="."]
 script = ExtResource("4_vjvyh")
 spline_length = 5.0
+color = Color(0.701961, 0.803922, 1, 1)

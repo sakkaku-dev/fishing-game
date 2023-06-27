@@ -1,13 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://gv7jyvdcn74m"]
+[gd_scene load_steps=5 format=3 uid="uid://gv7jyvdcn74m"]
 
 [ext_resource type="Script" path="res://src/fisher/hook.gd" id="1_3xbt8"]
+[ext_resource type="Texture2D" uid="uid://bwve2nq30wldn" path="res://icon.svg" id="2_8kn12"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vgtgm"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7u7fb"]
+size = Vector2(20, 4)
+
 [node name="Hook" type="CharacterBody2D"]
-collision_layer = 32
+collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_3xbt8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_vgtgm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("2_8kn12")
+
+[node name="WaterFloat" type="Area2D" parent="."]
+position = Vector2(0, -3)
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterFloat"]
+shape = SubResource("RectangleShape2D_7u7fb")
+
+[connection signal="area_entered" from="WaterFloat" to="." method="_on_water_float_area_entered"]
