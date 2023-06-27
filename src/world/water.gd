@@ -94,7 +94,7 @@ func _spring_positions():
 		result.append(spring.position)
 	return result
 
-func splash(index, body: CharacterBody2D):
+func splash(index, body: Node2D):
 	if body in inside_water:
 		return
 	

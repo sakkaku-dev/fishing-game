@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dr7pqnxrv5dmr"]
+
+[ext_resource type="Script" path="res://src/fisher/rope_part.gd" id="1_bxt4j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5pb2j"]
+size = Vector2(10, 20)
+
+[node name="RopePart" type="RigidBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_bxt4j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_5pb2j")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="CollisionShape2D"]
+position = Vector2(0, 7)
+node_a = NodePath("../..")
+softness = 1.0

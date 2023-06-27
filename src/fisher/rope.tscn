@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://7uig3j8ngmv"]
+
+[ext_resource type="Script" path="res://src/fisher/rope.gd" id="1_ydt70"]
+[ext_resource type="PackedScene" uid="uid://dr7pqnxrv5dmr" path="res://src/fisher/rope_part.tscn" id="2_g221w"]
+[ext_resource type="PackedScene" uid="uid://gv7jyvdcn74m" path="res://src/fisher/hook.tscn" id="3_dh0j1"]
+
+[node name="Rope" type="Node2D"]
+script = ExtResource("1_ydt70")
+rope_part_scene = ExtResource("2_g221w")
+hook_scene = ExtResource("3_dh0j1")
+
+[node name="StartPart" parent="." instance=ExtResource("2_g221w")]
+freeze = true
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 1.0
