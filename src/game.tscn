@@ -49,7 +49,6 @@ animations = [{
 script = ExtResource("1_8c2rl")
 
 [node name="Sun" parent="." instance=ExtResource("10_t4h8g")]
-visible = false
 
 [node name="Ocean" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -57,7 +56,6 @@ sprite_frames = SubResource("SpriteFrames_lm0s0")
 autoplay = "default"
 
 [node name="Land" type="Sprite2D" parent="."]
-visible = false
 texture = ExtResource("5_kctn3")
 
 [node name="Bucket" type="Sprite2D" parent="Land"]
@@ -73,11 +71,8 @@ offset_right = 110.0
 offset_bottom = 36.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.5, 0.5)
 
 [node name="Fisher" parent="." instance=ExtResource("7_4yahf")]
-visible = false
 
 [node name="Water" parent="." instance=ExtResource("8_y5vi0")]
-position = Vector2(-216, 0)
-height = 300
+position = Vector2(0, 168)

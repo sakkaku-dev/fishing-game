@@ -1,9 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://13h88mqj3vqq"]
+[gd_scene load_steps=10 format=3 uid="uid://13h88mqj3vqq"]
 
 [ext_resource type="Script" path="res://src/world/water.gd" id="1_kt6dd"]
-[ext_resource type="PackedScene" uid="uid://g2ccwyesdxtk" path="res://src/world/water_spring.tscn" id="2_5ag50"]
 [ext_resource type="Shader" path="res://src/world/water.gdshader" id="3_an1qq"]
 [ext_resource type="Script" path="res://src/world/SmoothPath2D.gd" id="4_vjvyh"]
+[ext_resource type="Shader" path="res://src/world/water_reflect.gdshader" id="5_3i8lk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sswdk"]
 shader = ExtResource("3_an1qq")
@@ -17,19 +17,48 @@ shader_parameter/sfoamStrength = 0.5
 shader_parameter/foamSpeed = null
 shader_parameter/foamScale = null
 
-[node name="Water" type="Node2D" node_paths=PackedStringArray("polygon", "border")]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_cest2"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_eh7ep"]
+noise = SubResource("FastNoiseLite_cest2")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pk4pj"]
+shader = ExtResource("5_3i8lk")
+shader_parameter/tint = Color(0.0313726, 0.133333, 0.509804, 1)
+shader_parameter/reflectionBlur = 0.3
+shader_parameter/calculatedOffset = -0.285
+shader_parameter/distortionScale = Vector2(0.3, 0.3)
+shader_parameter/distortionSpeed = Vector2(0.01, 0.02)
+shader_parameter/distortionStrength = Vector2(0.3, 0.3)
+shader_parameter/waveSmoothing = 0.01
+shader_parameter/mainWaveSpeed = 2.5
+shader_parameter/mainWaveFrequency = 20.0
+shader_parameter/mainWaveAmplitude = 0.002
+shader_parameter/shorelineColor = Color(1, 1, 1, 1)
+shader_parameter/shorelineSize = 0.0025
+shader_parameter/foamSize = 0.0025
+shader_parameter/foamStrength = 0.0025
+shader_parameter/foamSpeed = 0.069
+shader_parameter/foamScale = null
+shader_parameter/noiseTexture = SubResource("NoiseTexture2D_eh7ep")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_4cwl0"]
+
+[node name="Water" type="Node2D"]
 script = ExtResource("1_kt6dd")
-water_spring_scene = ExtResource("2_5ag50")
-polygon = NodePath("Polygon2D")
-border = NodePath("SmoothPath")
-spring_count = 50
-spring_offset = 10
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_sswdk")
 polygon = PackedVector2Array(45, 26, 253, 17, 418, 65, 365, 125, 192, 126, 10, 124, -23, 70)
 
 [node name="SmoothPath" type="Path2D" parent="."]
+visible = false
 script = ExtResource("4_vjvyh")
 spline_length = 5.0
 color = Color(0.701961, 0.803922, 1, 1)
+
+[node name="ColorRect" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_pk4pj")
+scale = Vector2(480, 257.225)
+texture = SubResource("CanvasTexture_4cwl0")
