@@ -23,6 +23,7 @@ uniform float foamSize : hint_range(0., 1.0) = 0.0025;
 uniform float foamStrength : hint_range(0., 1.0) = 0.5;
 uniform float foamSpeed;
 uniform vec2 foamScale;
+uniform vec4 foamTint : source_color = vec4(1.0);
 
 uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
 
@@ -51,7 +52,6 @@ void fragment()
 	waveArea = smoothstep(0., 1. * waveSmoothing, waveArea);
 	
 	color.a *= waveArea;
-	color.a *= 0.7;
 
 	float shorelineBottom = UV.y - distFromTop - shorelineSize;
 	shorelineBottom = smoothstep(0., 1. * waveSmoothing,  shorelineBottom);
@@ -66,8 +66,9 @@ void fragment()
 	shorelineFoam = smoothstep(0.0, shorelineFoam, foamSize);
 	
 	shorelineFoam *= foamNoise.r;
-	color.rgb += shorelineFoam * shorelineColor.rgb;
+	color.rgb += shorelineFoam * foamTint.rgb;
 	
+	color.a *= 0.7;
 	COLOR = color;
 }
 	

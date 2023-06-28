@@ -1,6 +1,6 @@
 extends Node2D
 
-const ROPE = preload("res://src/fisher/rope.tscn")
+const ROPE = preload("res://src/fisher/hook.tscn")
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():

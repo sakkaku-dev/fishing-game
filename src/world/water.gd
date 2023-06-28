@@ -104,3 +104,11 @@ var time = 0
 #	var spring = springs[index]
 #	inside_water.append(body)
 #	spring.velocity = 5
+
+
+func _on_body_entered(body):
+	body.start_floating()
+
+
+func _on_body_exited(body):
+	body.stop_floating()
