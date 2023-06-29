@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=16 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_8c2rl"]
 [ext_resource type="Texture2D" uid="uid://b7n2emce1ca4c" path="res://assets/Env_Ocean.png" id="4_s2340"]
@@ -8,6 +8,13 @@
 [ext_resource type="PackedScene" uid="uid://b0j3c586slsj" path="res://src/ui/system_time.tscn" id="8_4y4hg"]
 [ext_resource type="PackedScene" uid="uid://13h88mqj3vqq" path="res://src/world/water.tscn" id="8_y5vi0"]
 [ext_resource type="PackedScene" uid="uid://csuuck2g01ftq" path="res://src/world/sun.tscn" id="10_t4h8g"]
+
+[sub_resource type="Gradient" id="Gradient_2t30r"]
+colors = PackedColorArray(0.960351, 0.960351, 0.960351, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_avhu1"]
+gradient = SubResource("Gradient_2t30r")
+width = 480
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7xdhs"]
 atlas = ExtResource("4_s2340")
@@ -48,10 +55,16 @@ animations = [{
 [node name="Game" type="Node2D"]
 script = ExtResource("1_8c2rl")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.407843, 0.545098, 0.792157, 1)
+scale = Vector2(1, 270)
+texture = SubResource("GradientTexture1D_avhu1")
+
 [node name="Sun" parent="." instance=ExtResource("10_t4h8g")]
+position = Vector2(0, -41)
 
 [node name="Ocean" type="AnimatedSprite2D" parent="."]
-visible = false
+position = Vector2(0, 15)
 sprite_frames = SubResource("SpriteFrames_lm0s0")
 autoplay = "default"
 
@@ -76,3 +89,6 @@ offset_bottom = 36.0
 
 [node name="Water" parent="." instance=ExtResource("8_y5vi0")]
 position = Vector2(0, 168)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.121569, 0.121569, 0.121569, 1)

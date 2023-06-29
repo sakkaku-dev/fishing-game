@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://13h88mqj3vqq"]
+[gd_scene load_steps=12 format=3 uid="uid://13h88mqj3vqq"]
 
 [ext_resource type="Script" path="res://src/world/water.gd" id="1_kt6dd"]
 [ext_resource type="Shader" path="res://src/world/water.gdshader" id="3_an1qq"]
@@ -50,6 +50,9 @@ shader_parameter/noiseTexture = SubResource("NoiseTexture2D_eh7ep")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1lvou"]
 size = Vector2(482, 260)
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_pg17i"]
+polygon = PackedVector2Array(241, -112, 241, 129, -241, 129, -241, -112)
+
 [node name="Water" type="Area2D"]
 collision_layer = 0
 collision_mask = 2
@@ -74,6 +77,9 @@ texture = SubResource("CanvasTexture_4cwl0")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 17)
 shape = SubResource("RectangleShape2D_1lvou")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_pg17i")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
