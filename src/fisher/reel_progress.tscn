@@ -1,15 +1,48 @@
-[gd_scene load_steps=2 format=3 uid="uid://6cshbe8y4akw"]
+[gd_scene load_steps=4 format=3 uid="uid://6cshbe8y4akw"]
 
-[ext_resource type="Texture2D" uid="uid://bwve2nq30wldn" path="res://icon.svg" id="1_s7nqq"]
+[ext_resource type="Script" path="res://src/fisher/reel_progress.gd" id="1_l5noo"]
+[ext_resource type="Texture2D" uid="uid://djdunl3jama2e" path="res://assets/Reel_Inner.png" id="2_7qcxn"]
+[ext_resource type="Texture2D" uid="uid://oosx0fdk4xw0" path="res://assets/Reel_Outer.png" id="3_hd4x0"]
 
-[node name="ReelProgress" type="Node2D"]
+[node name="ReelProgress" type="Node2D" node_paths=PackedStringArray("reel_bar", "progress", "player_bar")]
+script = ExtResource("1_l5noo")
+reel_bar = NodePath("CenterContainer/ReelBar")
+progress = NodePath("CenterContainer/Progress")
+player_bar = NodePath("CenterContainer/PlayerBar")
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="."]
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="Progress" type="TextureProgressBar" parent="CenterContainer"]
+layout_mode = 2
+step = 0.01
+fill_mode = 4
+texture_progress = ExtResource("3_hd4x0")
+
+[node name="ReelBar" type="TextureProgressBar" parent="CenterContainer"]
+layout_mode = 2
+step = 0.01
 value = 20.0
 fill_mode = 4
-texture_under = ExtResource("1_s7nqq")
-texture_progress = ExtResource("1_s7nqq")
+texture_under = ExtResource("2_7qcxn")
+texture_progress = ExtResource("2_7qcxn")
 tint_under = Color(1, 1, 1, 0.509804)
-radial_initial_angle = 98.2
+
+[node name="PlayerBar" type="TextureProgressBar" parent="CenterContainer"]
+layout_mode = 2
+value = 2.0
+fill_mode = 4
+texture_progress = ExtResource("2_7qcxn")
+tint_progress = Color(0.788235, 0.278431, 0.278431, 1)
+
+[node name="ReelSpeedChangeTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="ReelSizeChangeTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="ReelSpeedChangeTimer" to="." method="_on_reel_speed_change_timer_timeout"]
+[connection signal="timeout" from="ReelSizeChangeTimer" to="." method="_on_reel_size_change_timer_timeout"]
