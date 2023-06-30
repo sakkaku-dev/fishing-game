@@ -1,87 +1,14 @@
-[gd_scene load_steps=16 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=5 format=3 uid="uid://2j5ctcv7g6ea"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_8c2rl"]
-[ext_resource type="Texture2D" uid="uid://b7n2emce1ca4c" path="res://assets/Env_Ocean.png" id="4_s2340"]
-[ext_resource type="Texture2D" uid="uid://cvjnapar8aiws" path="res://assets/Env_Bridge.png" id="5_kctn3"]
 [ext_resource type="PackedScene" uid="uid://cvhker42uq0ou" path="res://src/fisher/fisher.tscn" id="7_4yahf"]
-[ext_resource type="Texture2D" uid="uid://cij6buv5jetbe" path="res://assets/Bucket.png" id="7_qq7sf"]
-[ext_resource type="PackedScene" uid="uid://b0j3c586slsj" path="res://src/ui/system_time.tscn" id="8_4y4hg"]
 [ext_resource type="PackedScene" uid="uid://13h88mqj3vqq" path="res://src/world/water.tscn" id="8_y5vi0"]
-[ext_resource type="PackedScene" uid="uid://csuuck2g01ftq" path="res://src/world/sun.tscn" id="10_t4h8g"]
-
-[sub_resource type="Gradient" id="Gradient_2t30r"]
-colors = PackedColorArray(0.960351, 0.960351, 0.960351, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_avhu1"]
-gradient = SubResource("Gradient_2t30r")
-width = 480
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7xdhs"]
-atlas = ExtResource("4_s2340")
-region = Rect2(0, 0, 480, 270)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xre2o"]
-atlas = ExtResource("4_s2340")
-region = Rect2(480, 0, 480, 270)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ccfdn"]
-atlas = ExtResource("4_s2340")
-region = Rect2(960, 0, 480, 270)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qyoox"]
-atlas = ExtResource("4_s2340")
-region = Rect2(1440, 0, 480, 270)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_lm0s0"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7xdhs")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xre2o")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ccfdn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qyoox")
-}],
-"loop": true,
-"name": &"default",
-"speed": 2.0
-}]
+[ext_resource type="PackedScene" uid="uid://csuuck2g01ftq" path="res://src/world/world.tscn" id="10_t4h8g"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_8c2rl")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.407843, 0.545098, 0.792157, 1)
-scale = Vector2(1, 270)
-texture = SubResource("GradientTexture1D_avhu1")
-
-[node name="Sun" parent="." instance=ExtResource("10_t4h8g")]
-position = Vector2(0, -41)
-
-[node name="Ocean" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, 15)
-sprite_frames = SubResource("SpriteFrames_lm0s0")
-autoplay = "default"
-
-[node name="Land" type="Sprite2D" parent="."]
-texture = ExtResource("5_kctn3")
-
-[node name="Bucket" type="Sprite2D" parent="Land"]
-position = Vector2(72, 9)
-texture = ExtResource("7_qq7sf")
-hframes = 3
-
-[node name="SystemTime" parent="Land" instance=ExtResource("8_4y4hg")]
-visible = false
-offset_left = 70.0
-offset_top = -4.0
-offset_right = 110.0
-offset_bottom = 36.0
+[node name="World" parent="." instance=ExtResource("10_t4h8g")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://6cshbe8y4akw"]
+
+[ext_resource type="Texture2D" uid="uid://bwve2nq30wldn" path="res://icon.svg" id="1_s7nqq"]
+
+[node name="ReelProgress" type="Node2D"]
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+value = 20.0
+fill_mode = 4
+texture_under = ExtResource("1_s7nqq")
+texture_progress = ExtResource("1_s7nqq")
+tint_under = Color(1, 1, 1, 0.509804)
+radial_initial_angle = 98.2
