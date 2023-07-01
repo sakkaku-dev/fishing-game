@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://2j5ctcv7g6ea"]
+[gd_scene load_steps=6 format=3 uid="uid://2j5ctcv7g6ea"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_8c2rl"]
+[ext_resource type="PackedScene" uid="uid://6cshbe8y4akw" path="res://src/fisher/reel_progress.tscn" id="5_3buv7"]
 [ext_resource type="PackedScene" uid="uid://cvhker42uq0ou" path="res://src/fisher/fisher.tscn" id="7_4yahf"]
 [ext_resource type="PackedScene" uid="uid://13h88mqj3vqq" path="res://src/world/water.tscn" id="8_y5vi0"]
 [ext_resource type="PackedScene" uid="uid://csuuck2g01ftq" path="res://src/world/world.tscn" id="10_t4h8g"]
@@ -19,3 +20,9 @@ position = Vector2(0, 168)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.121569, 0.121569, 0.121569, 1)
+
+[node name="ReelProgress" parent="." instance=ExtResource("5_3buv7")]
+offset_left = 80.0
+offset_top = -62.0
+offset_right = 120.0
+offset_bottom = -22.0
