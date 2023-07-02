@@ -17,9 +17,6 @@ script = ExtResource("1_8c2rl")
 [node name="Water" parent="." instance=ExtResource("8_y5vi0")]
 position = Vector2(0, 168)
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.121569, 0.121569, 0.121569, 1)
-
 [node name="HookedTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
