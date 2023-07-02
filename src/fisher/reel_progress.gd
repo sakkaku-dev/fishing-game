@@ -1,4 +1,5 @@
-extends Node
+class_name ReelProgress
+extends Control
 
 signal filled
 
@@ -21,8 +22,22 @@ signal filled
 @onready var reel_speed := min_reel_speed
 
 var progress_value = 0.0
+var _start = false
+
+func start():
+	progress_value = 0.0
+	reel_bar.radial_initial_angle = 0.0
+	player_bar.radial_initial_angle = 0.0
+	_start = true
+	show()
+	
+func stop():
+	hide()
+	_start = false
 
 func _process(delta):
+	if not _start: return
+	
 	progress.value = progress_value
 	
 	reel_bar.radial_initial_angle += reel_speed * delta
@@ -75,4 +90,4 @@ func _process_inside():
 
 func _process_outside():
 	reel_bar.tint_progress = Color.WHITE
-	progress_value -= progress_decrease
+	progress_value = max(progress_value - 0.1, progress.min_value)

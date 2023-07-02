@@ -1,6 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://cvhker42uq0ou"]
+[gd_scene load_steps=10 format=3 uid="uid://cvhker42uq0ou"]
 
 [ext_resource type="Texture2D" uid="uid://ds4r6ciiv7xjb" path="res://assets/Char.png" id="1_bbxtn"]
+[ext_resource type="Script" path="res://src/fisher/fisher.gd" id="1_pke13"]
+[ext_resource type="PackedScene" uid="uid://6cshbe8y4akw" path="res://src/fisher/reel_progress.tscn" id="3_5yuw1"]
 
 [sub_resource type="Animation" id="Animation_kn760"]
 length = 0.001
@@ -91,7 +93,10 @@ _data = {
 "throw": SubResource("Animation_8f6f6")
 }
 
-[node name="Fisher" type="Node2D"]
+[node name="Fisher" type="Node2D" node_paths=PackedStringArray("anim", "reel")]
+script = ExtResource("1_pke13")
+anim = NodePath("AnimationPlayer")
+reel = NodePath("ReelProgress")
 
 [node name="Char" type="Sprite2D" parent="."]
 texture = ExtResource("1_bbxtn")
@@ -103,3 +108,11 @@ autoplay = "idle"
 libraries = {
 "": SubResource("AnimationLibrary_xmxo3")
 }
+
+[node name="ReelProgress" parent="." instance=ExtResource("3_5yuw1")]
+offset_left = 81.0
+offset_top = -64.0
+offset_right = 121.0
+offset_bottom = -24.0
+
+[connection signal="filled" from="ReelProgress" to="." method="_on_reel_progress_filled"]

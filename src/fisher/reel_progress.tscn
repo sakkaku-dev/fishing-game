@@ -5,8 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://oosx0fdk4xw0" path="res://assets/Reel_Outer.png" id="3_hd4x0"]
 
 [node name="ReelProgress" type="CenterContainer" node_paths=PackedStringArray("reel_bar", "progress", "player_bar")]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -19.0
+offset_top = -40.0
+offset_right = 21.0
 script = ExtResource("1_l5noo")
 reel_bar = NodePath("ReelBar")
 progress = NodePath("Progress")
