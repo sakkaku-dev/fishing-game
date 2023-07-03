@@ -1,10 +1,48 @@
-[gd_scene load_steps=4 format=3 uid="uid://6cshbe8y4akw"]
+[gd_scene load_steps=7 format=3 uid="uid://6cshbe8y4akw"]
 
 [ext_resource type="Script" path="res://src/fisher/reel_progress.gd" id="1_l5noo"]
 [ext_resource type="Texture2D" uid="uid://djdunl3jama2e" path="res://assets/Reel_Inner.png" id="2_7qcxn"]
 [ext_resource type="Texture2D" uid="uid://oosx0fdk4xw0" path="res://assets/Reel_Outer.png" id="3_hd4x0"]
 
-[node name="ReelProgress" type="CenterContainer" node_paths=PackedStringArray("reel_bar", "progress", "player_bar")]
+[sub_resource type="Animation" id="Animation_0idnc"]
+resource_name = "blink"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0.4, 0.4, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4cwnd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.784314)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y8076"]
+_data = {
+"RESET": SubResource("Animation_4cwnd"),
+"blink": SubResource("Animation_0idnc")
+}
+
+[node name="ReelProgress" type="CenterContainer" node_paths=PackedStringArray("reel_bar", "progress", "player_bar", "timeout_timer")]
+modulate = Color(1, 1, 1, 0.784314)
 offset_left = -19.0
 offset_top = -40.0
 offset_right = 21.0
@@ -12,6 +50,7 @@ script = ExtResource("1_l5noo")
 reel_bar = NodePath("ReelBar")
 progress = NodePath("Progress")
 player_bar = NodePath("PlayerBar")
+timeout_timer = NodePath("ReelTimeout")
 
 [node name="Progress" type="TextureProgressBar" parent="."]
 layout_mode = 2
@@ -45,5 +84,14 @@ autostart = true
 wait_time = 2.0
 autostart = true
 
+[node name="ReelTimeout" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_y8076")
+}
+
 [connection signal="timeout" from="ReelSpeedChangeTimer" to="." method="_on_reel_speed_change_timer_timeout"]
 [connection signal="timeout" from="ReelSizeChangeTimer" to="." method="_on_reel_size_change_timer_timeout"]
+[connection signal="timeout" from="ReelTimeout" to="." method="_on_reel_timeout_timeout"]
