@@ -4,6 +4,21 @@
 [ext_resource type="Texture2D" uid="uid://djdunl3jama2e" path="res://assets/Reel_Inner.png" id="2_7qcxn"]
 [ext_resource type="Texture2D" uid="uid://oosx0fdk4xw0" path="res://assets/Reel_Outer.png" id="3_hd4x0"]
 
+[sub_resource type="Animation" id="Animation_4cwnd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.784314)]
+}
+
 [sub_resource type="Animation" id="Animation_0idnc"]
 resource_name = "blink"
 loop_mode = 1
@@ -18,21 +33,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 0.4, 0.4, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_4cwnd"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0.784314)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_y8076"]
@@ -67,7 +67,6 @@ fill_mode = 4
 texture_under = ExtResource("2_7qcxn")
 texture_progress = ExtResource("2_7qcxn")
 tint_under = Color(1, 1, 1, 0.509804)
-radial_initial_angle = 312.7
 
 [node name="PlayerBar" type="TextureProgressBar" parent="."]
 layout_mode = 2

@@ -1,0 +1,92 @@
+[gd_scene load_steps=5 format=3 uid="uid://cjuv3ucmcrcf6"]
+
+[ext_resource type="Texture2D" uid="uid://27ggeiqlibex" path="res://assets/Title.png" id="1_ofal8"]
+
+[sub_resource type="Animation" id="Animation_w3jk6"]
+resource_name = "start"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(120, -241), Vector2(120, -42)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7, 0.9, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 0.0872665, -0.0523599, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_mufuo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(120, -42)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0872665]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ar0nb"]
+_data = {
+"RESET": SubResource("Animation_mufuo"),
+"start": SubResource("Animation_w3jk6")
+}
+
+[node name="Title" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ar0nb")
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 120.0
+offset_top = -42.0
+offset_right = 360.0
+offset_bottom = 184.0
+grow_horizontal = 2
+rotation = 0.0872665
+scale = Vector2(0.8, 0.8)
+pivot_offset = Vector2(120, 41.785)
+texture = ExtResource("1_ofal8")

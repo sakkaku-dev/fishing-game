@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://2j5ctcv7g6ea"]
+[gd_scene load_steps=6 format=3 uid="uid://2j5ctcv7g6ea"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_8c2rl"]
+[ext_resource type="PackedScene" uid="uid://cjpw21c2kdnc4" path="res://src/ui/fish_reward.tscn" id="5_xsm8a"]
 [ext_resource type="PackedScene" uid="uid://cvhker42uq0ou" path="res://src/fisher/fisher.tscn" id="7_4yahf"]
 [ext_resource type="PackedScene" uid="uid://13h88mqj3vqq" path="res://src/world/water.tscn" id="8_y5vi0"]
 [ext_resource type="PackedScene" uid="uid://csuuck2g01ftq" path="res://src/world/world.tscn" id="10_t4h8g"]
@@ -22,4 +23,10 @@ wait_time = 3.0
 one_shot = true
 autostart = true
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="FishReward" parent="CanvasLayer" instance=ExtResource("5_xsm8a")]
+
+[connection signal="caught_fish" from="Fisher" to="." method="_on_fisher_caught_fish"]
+[connection signal="lost_fish" from="Fisher" to="." method="_on_fisher_lost_fish"]
 [connection signal="timeout" from="HookedTimer" to="." method="_on_hooked_timer_timeout"]

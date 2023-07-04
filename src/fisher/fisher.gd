@@ -18,20 +18,24 @@ func hooked_fish():
 	
 	
 func _on_reel_progress_filled():
-	caught_fish.emit()
+	fishing = false
 	reel.stop()
 	anim.play("fish_in")
-	fishing = false
+	await anim.animation_finished
+	caught_fish.emit()
 
 func _on_reel_progress_timeout():
+	fishing = true
 	lost_fish.emit()
 	reel.stop()
 	anim.play("fish_leave")
-	fishing = true
 
 func _unhandled_input(event):
 	if not fishing and not anim.is_playing() and event.is_action_pressed("action"):
 		start_fishing()
+
+func _process(delta):
+	reel.is_action_pressed = Input.is_action_pressed("action")
 
 func start_fishing():
 	fishing = true

@@ -9,7 +9,7 @@ signal timeout
 @export var player_bar: TextureProgressBar
 @export var timeout_timer: Timer
 
-@export var progress_increase := 0.1
+@export var progress_increase := 0.5
 @export var progress_decrease := 0.05
 
 @export var min_player_speed := 50
@@ -28,10 +28,12 @@ var progress_value = 0.0
 var _start = false
 var time = 0.0
 
+var is_action_pressed = false
+
 func start(time_limit: float):
 	progress_value = 0.0
 	time = time_limit
-	reel_bar.radial_initial_angle = 0.0
+	reel_bar.radial_initial_angle = rad_to_deg(-PI/2)
 	player_bar.radial_initial_angle = 0.0
 	_start = true
 	show()
@@ -41,6 +43,8 @@ func start(time_limit: float):
 func stop():
 	hide()
 	_start = false
+	timeout_timer.stop()
+	anim.stop()
 
 func _process(delta):
 	if not _start: return
@@ -53,7 +57,7 @@ func _process(delta):
 	reel_bar.radial_initial_angle += reel_speed * delta
 
 	var player_speed = 0
-	if Input.is_action_pressed("action"):
+	if is_action_pressed:
 		player_speed = max_player_speed
 		
 	player_bar.radial_initial_angle += player_speed * delta
@@ -93,14 +97,14 @@ func _on_reel_size_change_timer_timeout():
 
 func _process_inside():
 	reel_bar.tint_progress = Color.BLUE
-	progress_value = min(progress_value + 0.1, progress.max_value)
+	progress_value = min(progress_value + progress_increase, progress.max_value)
 	
 	if progress_value >= progress.max_value:
 		filled.emit()
 
 func _process_outside():
 	reel_bar.tint_progress = Color.WHITE
-	progress_value = max(progress_value - 0.1, progress.min_value)
+	progress_value = max(progress_value - progress_decrease, progress.min_value)
 
 
 func _on_reel_timeout_timeout():
