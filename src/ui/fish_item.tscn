@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://v7l2q85trdyu"]
+
+[ext_resource type="Shader" path="res://src/blacken.gdshader" id="1_d4yaw"]
+[ext_resource type="Script" path="res://src/ui/fish_item.gd" id="1_dmvjq"]
+[ext_resource type="Texture2D" uid="uid://dg2v3dia8klf0" path="res://assets/fishing_icons/fishes/sprite_0.png" id="2_xyvdc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mt4o6"]
+bg_color = Color(1, 1, 1, 0.156863)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kslew"]
+shader = ExtResource("1_d4yaw")
+shader_parameter/enabled = false
+
+[node name="FishItem" type="PanelContainer" node_paths=PackedStringArray("btn")]
+theme_override_styles/panel = SubResource("StyleBoxFlat_mt4o6")
+script = ExtResource("1_dmvjq")
+btn = NodePath("MarginContainer/TextureButton")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="TextureButton" type="TextureButton" parent="MarginContainer"]
+material = SubResource("ShaderMaterial_kslew")
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture_normal = ExtResource("2_xyvdc")
+ignore_texture_size = true
+stretch_mode = 5

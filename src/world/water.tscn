@@ -35,7 +35,7 @@ shader_parameter/distortionStrength = Vector2(0.3, 0.3)
 shader_parameter/waveSmoothing = 0.01
 shader_parameter/mainWaveSpeed = 2.5
 shader_parameter/mainWaveFrequency = 20.0
-shader_parameter/mainWaveAmplitude = 0.002
+shader_parameter/mainWaveAmplitude = 0.005
 shader_parameter/shorelineColor = Color(1, 1, 1, 1)
 shader_parameter/shorelineSize = 0.0025
 shader_parameter/foamSize = 0.512
@@ -75,10 +75,12 @@ scale = Vector2(480, 257.225)
 texture = SubResource("CanvasTexture_4cwl0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 17)
 shape = SubResource("RectangleShape2D_1lvou")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+visible = false
 occluder = SubResource("OccluderPolygon2D_pg17i")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

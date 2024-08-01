@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://dcuqfoy6vonab"]
+
+[ext_resource type="Script" path="res://src/game_manager.gd" id="1_piiv7"]
+[ext_resource type="PackedScene" uid="uid://cjtpdummuwgjf" path="res://src/utils/fish_parser.tscn" id="2_lj2iv"]
+[ext_resource type="Script" path="res://addons/save-system/SaveManager.gd" id="3_4wwp8"]
+
+[node name="GameManager" type="Node"]
+script = ExtResource("1_piiv7")
+
+[node name="FishParser" parent="." instance=ExtResource("2_lj2iv")]
+
+[node name="SaveManager" type="Node" parent="."]
+script = ExtResource("3_4wwp8")

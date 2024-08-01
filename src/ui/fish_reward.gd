@@ -1,11 +1,14 @@
 extends Control
 
+@export var fish_icon: TextureRect
+
 @onready var anim = $AnimationPlayer
 
 func _ready():
 	modulate = Color.TRANSPARENT
 
-func start():
+func start(id: int):
+	fish_icon.texture = GameManager.load_fish_icon(id)
 	anim.play("show")
 	
 func stop():

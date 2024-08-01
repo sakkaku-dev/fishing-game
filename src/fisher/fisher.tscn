@@ -120,10 +120,10 @@ hframes = 10
 vframes = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "idle"
 libraries = {
 "": SubResource("AnimationLibrary_xmxo3")
 }
+autoplay = "idle"
 
 [node name="ReelProgress" parent="." instance=ExtResource("3_5yuw1")]
 offset_left = 81.0

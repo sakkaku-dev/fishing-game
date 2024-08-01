@@ -16,7 +16,6 @@ func hooked_fish():
 	anim.play("bite")
 	reel.start(10.0)
 	
-	
 func _on_reel_progress_filled():
 	fishing = false
 	reel.stop()
@@ -40,4 +39,3 @@ func _process(delta):
 func start_fishing():
 	fishing = true
 	anim.play("throw")
-

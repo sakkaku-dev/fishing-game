@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://bofdob7o2nl5p"]
+
+[ext_resource type="Script" path="res://src/aquarium.gd" id="1_fggwm"]
+[ext_resource type="PackedScene" uid="uid://bsmwq7hnaraw7" path="res://src/fisher/fish.tscn" id="2_us8lr"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_051fr"]
+vertices = PackedVector2Array(230, 123, -230, 123, -230, -124, 230, -124)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-240, -135, 240, -134, 240, 133, -240, 134)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[node name="Aquarium" type="Node2D"]
+script = ExtResource("1_fggwm")
+fish_scene = ExtResource("2_us8lr")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MoveFishing" type="Button" parent="CanvasLayer/Control/MarginContainer"]
+layout_mode = 2
+text = "< Fishing"
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_051fr")
+
+[connection signal="pressed" from="CanvasLayer/Control/MarginContainer/MoveFishing" to="." method="_on_move_fishing_pressed"]

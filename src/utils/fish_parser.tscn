@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjtpdummuwgjf"]
+
+[ext_resource type="Script" path="res://src/utils/fish_parser.gd" id="1_rbl1x"]
+
+[node name="FishParser" type="Node"]
+script = ExtResource("1_rbl1x")

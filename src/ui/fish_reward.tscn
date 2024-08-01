@@ -19,6 +19,21 @@ shader_parameter/smoothing = 0.668
 shader_parameter/size = 0.454
 shader_parameter/color_gradient = SubResource("GradientTexture1D_oe3kn")
 
+[sub_resource type="Animation" id="Animation_6yy7j"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_1lqos"]
 resource_name = "show"
 length = 0.5
@@ -35,28 +50,13 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_6yy7j"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tybwl"]
 _data = {
 "RESET": SubResource("Animation_6yy7j"),
 "show": SubResource("Animation_1lqos")
 }
 
-[node name="FishReward" type="Control"]
+[node name="FishReward" type="Control" node_paths=PackedStringArray("fish_icon")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -64,6 +64,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_nrnqd")
+fish_icon = NodePath("CenterContainer/FishIcon")
 
 [node name="TextureRect3" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(100, 100)
@@ -88,7 +89,7 @@ material = SubResource("ShaderMaterial_bjete")
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="CenterContainer"]
+[node name="FishIcon" type="TextureRect" parent="CenterContainer"]
 layout_mode = 2
 texture = ExtResource("2_j8lm5")
 

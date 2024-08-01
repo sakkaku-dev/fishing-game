@@ -262,10 +262,11 @@ offset_right = 110.0
 offset_bottom = 36.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "run"
 libraries = {
 "": SubResource("AnimationLibrary_syms0")
 }
+autoplay = "run"
+speed_scale = 0.1
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.403922, 0.403922, 0.403922, 1)

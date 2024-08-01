@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://bsmwq7hnaraw7"]
+
+[ext_resource type="Script" path="res://src/fisher/NavigationMove2D.gd" id="1_bvdp1"]
+[ext_resource type="Script" path="res://src/fisher/fish.gd" id="1_n6hpi"]
+[ext_resource type="Texture2D" uid="uid://dg2v3dia8klf0" path="res://assets/fishing_icons/fishes/sprite_0.png" id="2_u2t55"]
+[ext_resource type="Script" path="res://src/fisher/RandomTimer.gd" id="3_0svcs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p3oqr"]
+size = Vector2(16, 8)
+
+[node name="Fish" type="CharacterBody2D"]
+script = ExtResource("1_n6hpi")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -0.785398
+texture = ExtResource("2_u2t55")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_p3oqr")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." node_paths=PackedStringArray("enemy")]
+script = ExtResource("1_bvdp1")
+enemy = NodePath("..")
+
+[node name="IdleTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+script = ExtResource("3_0svcs")
+min_time = 1.0
+max_time = 4.0

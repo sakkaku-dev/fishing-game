@@ -1,13 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://2j5ctcv7g6ea"]
+[gd_scene load_steps=8 format=3 uid="uid://2j5ctcv7g6ea"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_8c2rl"]
 [ext_resource type="PackedScene" uid="uid://cjpw21c2kdnc4" path="res://src/ui/fish_reward.tscn" id="5_xsm8a"]
+[ext_resource type="Script" path="res://src/ui/fishes.gd" id="6_kgstw"]
+[ext_resource type="PackedScene" uid="uid://v7l2q85trdyu" path="res://src/ui/fish_item.tscn" id="7_4qhyo"]
 [ext_resource type="PackedScene" uid="uid://cvhker42uq0ou" path="res://src/fisher/fisher.tscn" id="7_4yahf"]
 [ext_resource type="PackedScene" uid="uid://13h88mqj3vqq" path="res://src/world/water.tscn" id="8_y5vi0"]
 [ext_resource type="PackedScene" uid="uid://csuuck2g01ftq" path="res://src/world/world.tscn" id="10_t4h8g"]
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("fishes")]
 script = ExtResource("1_8c2rl")
+fishes = NodePath("CanvasLayer/Control/Fishes")
 
 [node name="World" parent="." instance=ExtResource("10_t4h8g")]
 
@@ -27,6 +30,78 @@ autostart = true
 
 [node name="FishReward" parent="CanvasLayer" instance=ExtResource("5_xsm8a")]
 
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Fishes" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("container")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_kgstw")
+container = NodePath("PanelContainer/ScrollContainer/MarginContainer/GridContainer")
+item_scene = ExtResource("7_4qhyo")
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/Fishes"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -181.0
+offset_top = -93.0
+offset_right = 181.0
+offset_bottom = 93.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Control/Fishes/PanelContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Fishes/PanelContainer/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Control/Fishes/PanelContainer/ScrollContainer/MarginContainer"]
+layout_mode = 2
+columns = 9
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+offset_right = 99.0
+offset_bottom = 31.0
+
+[node name="MoveAquarium" type="Button" parent="CanvasLayer/Control/MarginContainer"]
+layout_mode = 2
+text = "< Aquarium"
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -99.0
+offset_bottom = 31.0
+grow_horizontal = 0
+
+[node name="Fishes" type="Button" parent="CanvasLayer/Control/MarginContainer2"]
+layout_mode = 2
+text = "Fishes"
+
 [connection signal="caught_fish" from="Fisher" to="." method="_on_fisher_caught_fish"]
 [connection signal="lost_fish" from="Fisher" to="." method="_on_fisher_lost_fish"]
 [connection signal="timeout" from="HookedTimer" to="." method="_on_hooked_timer_timeout"]
+[connection signal="pressed" from="CanvasLayer/Control/MarginContainer/MoveAquarium" to="." method="_on_move_aquarium_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/MarginContainer2/Fishes" to="." method="_on_fishes_pressed"]
