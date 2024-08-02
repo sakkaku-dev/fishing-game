@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://0xnqubqqfxde"]
+
+[ext_resource type="PackedScene" uid="uid://dgdadij3nypqv" path="res://src/ui/dialog.tscn" id="1_47nle"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uwj15"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7h815"]
+content_margin_left = 5.0
+content_margin_top = 1.0
+content_margin_right = 5.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rxem8"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0, 0, 0, 0)
+
+[node name="Shop" instance=ExtResource("1_47nle")]
+
+[node name="Label" parent="VBoxContainer/CenterContainer/HBoxContainer" index="0"]
+text = "SHOP"
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer/ScrollContainer/MarginContainer" index="0"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_uwj15")
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_7h815")
+theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_rxem8")
+tab_alignment = 1
+current_tab = 0
+
+[node name="Fishing" type="GridContainer" parent="VBoxContainer/ScrollContainer/MarginContainer/TabContainer" index="1"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Aquarium" type="GridContainer" parent="VBoxContainer/ScrollContainer/MarginContainer/TabContainer" index="2"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1

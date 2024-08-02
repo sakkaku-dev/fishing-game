@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://v7l2q85trdyu"]
+[gd_scene load_steps=7 format=3 uid="uid://v7l2q85trdyu"]
 
 [ext_resource type="Shader" path="res://src/blacken.gdshader" id="1_d4yaw"]
 [ext_resource type="Script" path="res://src/ui/fish_item.gd" id="1_dmvjq"]
+[ext_resource type="Theme" uid="uid://cvvavdkxk7llv" path="res://theme/theme.tres" id="1_xpjw7"]
 [ext_resource type="Texture2D" uid="uid://dg2v3dia8klf0" path="res://assets/fishing_icons/fishes/sprite_0.png" id="2_xyvdc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mt4o6"]
@@ -15,22 +16,55 @@ corner_radius_bottom_left = 5
 shader = ExtResource("1_d4yaw")
 shader_parameter/enabled = false
 
-[node name="FishItem" type="PanelContainer" node_paths=PackedStringArray("btn")]
-theme_override_styles/panel = SubResource("StyleBoxFlat_mt4o6")
+[node name="Control" type="Control" node_paths=PackedStringArray("btn", "chance_label")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 3
+anchors_preset = 0
+theme = ExtResource("1_xpjw7")
 script = ExtResource("1_dmvjq")
-btn = NodePath("MarginContainer/TextureButton")
+btn = NodePath("FishItem/MarginContainer/TextureButton")
+chance_label = NodePath("MarginContainer2/Chance")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="FishItem" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mt4o6")
+
+[node name="MarginContainer" type="MarginContainer" parent="FishItem"]
 layout_mode = 2
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="TextureButton" type="TextureButton" parent="MarginContainer"]
+[node name="TextureButton" type="TextureButton" parent="FishItem/MarginContainer"]
 material = SubResource("ShaderMaterial_kslew")
-custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 texture_normal = ExtResource("2_xyvdc")
 ignore_texture_size = true
 stretch_mode = 5
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -27.5
+offset_top = -23.0
+offset_right = 27.5
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="Chance" type="Label" parent="MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 4
+text = "10.51%"

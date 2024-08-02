@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://cjpw21c2kdnc4"]
+[gd_scene load_steps=12 format=3 uid="uid://cjpw21c2kdnc4"]
 
+[ext_resource type="Theme" uid="uid://cvvavdkxk7llv" path="res://theme/theme.tres" id="1_gjhyy"]
 [ext_resource type="Script" path="res://src/ui/fish_reward.gd" id="1_nrnqd"]
 [ext_resource type="Shader" path="res://src/circle_rainbow.gdshader" id="1_xi0vs"]
-[ext_resource type="Texture2D" uid="uid://bapvdrg3weylt" path="res://assets/Fish_Normal.png" id="2_j8lm5"]
+[ext_resource type="Texture2D" uid="uid://8hfl7xkupe8d" path="res://assets/fishing_icons/fishes/sprite_95.png" id="4_3lpjj"]
 
 [sub_resource type="Gradient" id="Gradient_1h4ek"]
 colors = PackedColorArray(1, 0.933333, 0, 1, 1, 0.25, 0, 1)
@@ -33,6 +34,42 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CenterContainer/MarginContainer/FirstCatch:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CenterContainer/TextureRect2:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_1lqos"]
 resource_name = "show"
@@ -49,22 +86,92 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_rxo3y"]
+resource_name = "hide"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CenterContainer/MarginContainer/FirstCatch:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CenterContainer/TextureRect2:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tybwl"]
 _data = {
 "RESET": SubResource("Animation_6yy7j"),
+"hide": SubResource("Animation_rxo3y"),
 "show": SubResource("Animation_1lqos")
 }
 
-[node name="FishReward" type="Control" node_paths=PackedStringArray("fish_icon")]
+[node name="FishReward" type="Control" node_paths=PackedStringArray("fish_icon", "name_label", "first_catch_label", "shine")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_gjhyy")
 script = ExtResource("1_nrnqd")
 fish_icon = NodePath("CenterContainer/FishIcon")
+name_label = NodePath("CenterContainer/MarginContainer2/Name")
+first_catch_label = NodePath("CenterContainer/MarginContainer/FirstCatch")
+shine = NodePath("CenterContainer/TextureRect2")
 
 [node name="TextureRect3" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(100, 100)
@@ -74,6 +181,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 0.705882)
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
@@ -85,13 +193,37 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TextureRect2" type="ColorRect" parent="CenterContainer"]
+visible = false
 material = SubResource("ShaderMaterial_bjete")
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 
-[node name="FishIcon" type="TextureRect" parent="CenterContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer"]
 layout_mode = 2
-texture = ExtResource("2_j8lm5")
+theme_override_constants/margin_top = -60
+
+[node name="FirstCatch" type="Label" parent="CenterContainer/MarginContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+text = "FIRST_CATCH"
+
+[node name="FishIcon" type="TextureRect" parent="CenterContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+texture = ExtResource("4_3lpjj")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="MarginContainer2" type="MarginContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 50
+
+[node name="Name" type="Label" parent="CenterContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.707967, 0.707967, 0.707967, 1)
+text = "__FISH_NAME__"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

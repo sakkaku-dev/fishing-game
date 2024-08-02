@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dcuqfoy6vonab"]
+[gd_scene load_steps=5 format=3 uid="uid://dcuqfoy6vonab"]
 
 [ext_resource type="Script" path="res://src/game_manager.gd" id="1_piiv7"]
 [ext_resource type="PackedScene" uid="uid://cjtpdummuwgjf" path="res://src/utils/fish_parser.tscn" id="2_lj2iv"]
 [ext_resource type="Script" path="res://addons/save-system/SaveManager.gd" id="3_4wwp8"]
+[ext_resource type="Script" path="res://addons/save-system/CacheProperties.gd" id="4_80myg"]
 
 [node name="GameManager" type="Node"]
 script = ExtResource("1_piiv7")
@@ -11,3 +12,8 @@ script = ExtResource("1_piiv7")
 
 [node name="SaveManager" type="Node" parent="."]
 script = ExtResource("3_4wwp8")
+
+[node name="CacheProperties" type="Node" parent="."]
+script = ExtResource("4_80myg")
+properties = Array[String](["unlocked_fish", "aquarium", "day_time", "money"])
+node_path = NodePath("..")

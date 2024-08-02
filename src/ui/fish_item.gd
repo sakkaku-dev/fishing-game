@@ -1,6 +1,7 @@
-extends PanelContainer
+extends Control
 
 @export var btn: TextureButton
+@export var chance_label: Label
 
 var fish_id: int
 
@@ -13,10 +14,12 @@ func _ready() -> void:
 	
 	btn.material = btn.material.duplicate()
 
-func set_fish(fish: Dictionary):
-	fish_id = int(fish["id"])
+func set_fish(fish: Dictionary, chance: float):
+	fish_id = fish["id"]
 	btn.texture_normal = GameManager.load_fish_icon(fish_id)
 	btn.tooltip_text = fish["name"]
+	
+	chance_label.text = "%.2f%%" % [chance * 100]
 	_update_unlocked()
 
 func _update_unlocked():

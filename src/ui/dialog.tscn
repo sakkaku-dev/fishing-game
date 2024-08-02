@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3 uid="uid://dgdadij3nypqv"]
+
+[ext_resource type="Theme" uid="uid://cvvavdkxk7llv" path="res://theme/theme.tres" id="1_kk7wi"]
+[ext_resource type="Script" path="res://src/ui/dialog.gd" id="1_uad03"]
+[ext_resource type="Texture2D" uid="uid://bwve2nq30wldn" path="res://icon.svg" id="3_xa8sx"]
+
+[node name="Dialog" type="PanelContainer" node_paths=PackedStringArray("close_button")]
+custom_minimum_size = Vector2(360, 200)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -100.0
+offset_right = 180.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_kk7wi")
+script = ExtResource("1_uad03")
+close_button = NodePath("VBoxContainer/CenterContainer/HBoxContainer/TextureButton")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="CenterContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/CenterContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "__TITLE__"
+horizontal_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="VBoxContainer/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture_normal = ExtResource("3_xa8sx")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

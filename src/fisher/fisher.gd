@@ -2,6 +2,7 @@ extends Node2D
 
 signal caught_fish()
 signal lost_fish()
+signal start_fish()
 
 @export var anim: AnimationPlayer
 @export var reel: ReelProgress
@@ -39,3 +40,4 @@ func _process(delta):
 func start_fishing():
 	fishing = true
 	anim.play("throw")
+	start_fish.emit()

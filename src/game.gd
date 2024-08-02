@@ -1,39 +1,39 @@
 extends Node2D
 
-const ROPE = preload("res://src/fisher/hook.tscn")
-
-@export var fishes: Fishes
+@export var fish_reward: FishReward
 
 @onready var player := $Fisher
-@onready var fish_reward := $CanvasLayer/FishReward
+@onready var hooked_timer = $HookedTimer
+
+var first_catch := false
+var currently_hooked = -1
 
 func _ready():
-	GameManager.caught_fish.connect(func(id): fish_reward.start(id))
-
-func _unhandled_input(event):
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
-		var pos = get_global_mouse_position()
-		var hook = ROPE.instantiate()
-		hook.global_position = pos
-		add_child(hook)
-
+	GameManager.caught_fish.connect(func(id): fish_reward.start(id, first_catch))
 
 func _on_hooked_timer_timeout():
+	currently_hooked = GameManager.get_random_fish()
+	if currently_hooked < 0:
+		print("Hooked invalid fish. This should not happen")
+		return
+	
+	print("Hooked fish %s" % currently_hooked)
 	player.hooked_fish()
+	first_catch = not GameManager.has_unlocked_fish(currently_hooked)
 
 
 func _on_fisher_caught_fish():
-	GameManager.add_fish()
+	if currently_hooked > 0:
+		GameManager.add_fish(currently_hooked)
 
 
 func _on_fisher_lost_fish():
-	pass # Replace with function body.
+	hooked_timer.start()
+
+
+func _on_fisher_start_fish():
+	hooked_timer.start()
 
 
 func _on_move_aquarium_pressed():
 	GameManager.go_to_aquarium()
-
-
-func _on_fishes_pressed() -> void:
-	fishes.visible = not fishes.visible
-	get_viewport().gui_release_focus()

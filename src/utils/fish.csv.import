@@ -6,10 +6,10 @@ uid="uid://br0eq4n15pula"
 
 [deps]
 
-files=["res://src/utils/fish.name.translation", "res://src/utils/fish.other.translation", "res://src/utils/fish.rarity.translation", "res://src/utils/fish.selling.translation", "res://src/utils/fish.tags.translation"]
+files=["res://src/utils/fish.name.translation", "res://src/utils/fish.other.translation", "res://src/utils/fish.rarity.translation", "res://src/utils/fish.price.translation", "res://src/utils/fish.tags.translation"]
 
 source_file="res://src/utils/fish.csv"
-dest_files=["res://src/utils/fish.name.translation", "res://src/utils/fish.other.translation", "res://src/utils/fish.rarity.translation", "res://src/utils/fish.selling.translation", "res://src/utils/fish.tags.translation"]
+dest_files=["res://src/utils/fish.name.translation", "res://src/utils/fish.other.translation", "res://src/utils/fish.rarity.translation", "res://src/utils/fish.price.translation", "res://src/utils/fish.tags.translation"]
 
 [params]
 

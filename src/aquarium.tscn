@@ -1,7 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://bofdob7o2nl5p"]
+[gd_scene load_steps=9 format=3 uid="uid://bofdob7o2nl5p"]
 
 [ext_resource type="Script" path="res://src/aquarium.gd" id="1_fggwm"]
 [ext_resource type="PackedScene" uid="uid://bsmwq7hnaraw7" path="res://src/fisher/fish.tscn" id="2_us8lr"]
+[ext_resource type="Theme" uid="uid://cvvavdkxk7llv" path="res://theme/theme.tres" id="3_gxumb"]
+[ext_resource type="Texture2D" uid="uid://dijkhq6x7nsg2" path="res://assets/fishing_icons/fishes/sprite_48.png" id="4_ffv1x"]
+[ext_resource type="Script" path="res://src/ui/money.gd" id="4_xi6kp"]
+[ext_resource type="PackedScene" uid="uid://0xnqubqqfxde" path="res://src/ui/shop.tscn" id="5_fx04n"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_koheu"]
+bg_color = Color(0, 0, 0, 0.690196)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_051fr"]
 vertices = PackedVector2Array(230, 123, -230, 123, -230, -124, 230, -124)
@@ -9,9 +16,13 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-240, -135, 240, -134, 240, 133, -240, 134)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 
-[node name="Aquarium" type="Node2D"]
+[node name="Aquarium" type="Node2D" node_paths=PackedStringArray("selected_panel", "selected_label", "selected_image", "sell_button")]
 script = ExtResource("1_fggwm")
 fish_scene = ExtResource("2_us8lr")
+selected_panel = NodePath("CanvasLayer/Control/SelectedFish")
+selected_label = NodePath("CanvasLayer/Control/SelectedFish/MarginContainer/VBoxContainer/Label")
+selected_image = NodePath("CanvasLayer/Control/SelectedFish/MarginContainer/VBoxContainer/TextureRect")
+sell_button = NodePath("CanvasLayer/Control/SelectedFish/MarginContainer/VBoxContainer/Sell")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -19,20 +30,104 @@ fish_scene = ExtResource("2_us8lr")
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("3_gxumb")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+offset_right = 44.0
+offset_bottom = 8.0
 
 [node name="MoveFishing" type="Button" parent="CanvasLayer/Control/MarginContainer"]
 layout_mode = 2
 text = "< Fishing"
 
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -50.0
+offset_bottom = 14.0
+grow_horizontal = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/MarginContainer2"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_koheu")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer2/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/MarginContainer2/PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_right = 3
+
+[node name="Money" type="Label" parent="CanvasLayer/Control/MarginContainer2/PanelContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "__$000__"
+script = ExtResource("4_xi6kp")
+
+[node name="Shop" type="Button" parent="CanvasLayer/Control/MarginContainer2/PanelContainer/HBoxContainer"]
+layout_mode = 2
+text = "SHOP"
+
+[node name="SelectedFish" type="PanelContainer" parent="CanvasLayer/Control"]
+custom_minimum_size = Vector2(80, 120)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -60.0
+offset_bottom = 60.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/SelectedFish"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/SelectedFish/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/SelectedFish/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "__NAME__"
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/SelectedFish/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+texture = ExtResource("4_ffv1x")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Control" type="Control" parent="CanvasLayer/Control/SelectedFish/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Sell" type="Button" parent="CanvasLayer/Control/SelectedFish/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Sell ($20)"
+
+[node name="Shop" parent="CanvasLayer/Control" node_paths=PackedStringArray("open_button") instance=ExtResource("5_fx04n")]
+layout_mode = 1
+open_button = NodePath("../MarginContainer2/PanelContainer/HBoxContainer/Shop")
+
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_051fr")
 
 [connection signal="pressed" from="CanvasLayer/Control/MarginContainer/MoveFishing" to="." method="_on_move_fishing_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/SelectedFish/MarginContainer/VBoxContainer/Sell" to="." method="_on_sell_pressed"]

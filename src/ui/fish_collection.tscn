@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://2bl1ijjrvnbh"]
+
+[ext_resource type="PackedScene" uid="uid://dgdadij3nypqv" path="res://src/ui/dialog.tscn" id="1_5ecuc"]
+[ext_resource type="Script" path="res://src/ui/fish_collection.gd" id="2_tbf1j"]
+[ext_resource type="PackedScene" uid="uid://v7l2q85trdyu" path="res://src/ui/fish_item.tscn" id="3_pa1au"]
+
+[node name="FishCollection" node_paths=PackedStringArray("container") instance=ExtResource("1_5ecuc")]
+script = ExtResource("2_tbf1j")
+container = NodePath("VBoxContainer/ScrollContainer/MarginContainer/GridContainer")
+item_scene = ExtResource("3_pa1au")
+
+[node name="Label" parent="VBoxContainer/CenterContainer/HBoxContainer" index="0"]
+text = "Fish Collection"
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/ScrollContainer/MarginContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 9
