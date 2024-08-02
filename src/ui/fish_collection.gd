@@ -19,5 +19,5 @@ func _update():
 	
 	for fish in fish_chances:
 		var node = item_scene.instantiate()
-		node.set_fish(fish[2], fish[1])
 		container.add_child(node)
+		node.set_fish(fish[2], fish[1])

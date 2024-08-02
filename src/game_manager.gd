@@ -4,6 +4,14 @@ signal caught_fish(id)
 signal day_changed()
 signal money_changed()
 
+enum Rarity {
+	COMMON,
+	UNCOMMON,
+	RARE,
+	EPIC,
+	LEGENDARY,
+}
+
 const FISH_ICON_FOLDER = "res://assets/fishing_icons/fishes/"
 const SAVE_SLOT = 0
 
@@ -23,6 +31,21 @@ const TAG_CARNIVORE = "carnivore"
 @export var day_start := 0
 @export var night_start := 42
 @export var temp_warm_start = 20
+
+@export_category("Rarity")
+@export var common_color: Color
+@export var uncommon_color: Color
+@export var rare_color: Color
+@export var epic_color: Color
+@export var legendary_color: Color
+
+@onready var rarity_colors = {
+	GameManager.Rarity.COMMON: common_color,
+	GameManager.Rarity.UNCOMMON: uncommon_color,
+	GameManager.Rarity.RARE: rare_color,
+	GameManager.Rarity.EPIC: epic_color,
+	GameManager.Rarity.LEGENDARY: legendary_color,
+}
 
 @onready var save_manager: SaveManager = $SaveManager
 @onready var cache_properties: CacheProperties = $CacheProperties
@@ -73,6 +96,23 @@ func _load_data():
 	if data:
 		cache_properties.load_data(data)
 
+func get_rarity(fish: Dictionary):
+	var p = fish["rarity"]
+	
+	if p <= 0.01:
+		return Rarity.LEGENDARY
+	elif p <= 0.05:
+		return Rarity.EPIC
+	elif p <= 0.3:
+		return Rarity.RARE
+	elif p <= 0.6:
+		return Rarity.UNCOMMON
+	
+	return Rarity.COMMON
+
+func get_rarity_color(fish: Dictionary) -> Color:
+	return rarity_colors[get_rarity(fish)]
+
 func get_fish_data(fish: int):
 	var found = fish_data.filter(func(x): return x["id"] == fish)
 	if found.is_empty():
@@ -104,16 +144,21 @@ func _get_fish_chance(fish: Dictionary):
 	var tags = fish["tags"]
 	
 	var conditions = [
-		func(): return is_day and TAG_DAY in tags,
-		func(): return not is_day and TAG_NIGHT in tags,
 		func(): return temp >= temp_warm_start and TAG_WARM in tags,
 		func(): return temp < temp_warm_start and TAG_COLD in tags,
 	]
 	
-	for cond in conditions:
-		if cond.call():
-			matching_tags += 1
-	
+	if is_day and TAG_DAY in tags:
+		matching_tags += 1
+		for cond in conditions:
+			if cond.call():
+				matching_tags += 1
+	elif not is_day and TAG_NIGHT in tags:
+		matching_tags += 1
+		for cond in conditions:
+			if cond.call():
+				matching_tags += 1
+		
 	return pow(base_rarity_factor, fish["rarity"]) * (matching_tags * tag_multiplier)
 
 func get_catchable_fishes():

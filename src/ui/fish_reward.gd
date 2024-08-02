@@ -15,12 +15,23 @@ func _ready():
 	shine.hide()
 
 func start(fish: int, first_unlock: bool):
+	var data = GameManager.get_fish_data(fish)
+	
 	fish_icon.texture = GameManager.load_fish_icon(fish)
-	name_label.text = "%s" % GameManager.get_fish_data(fish)["name"]
+	name_label.text = "%s" % data["name"]
+	
+	var mat = shine.material as ShaderMaterial
+	var grad_tex = mat.get_shader_parameter("color_gradient") as GradientTexture1D
+	var grad = grad_tex.gradient
+	var color = GameManager.get_rarity_color(data)
+	var end_color = color.darkened(0.5)
+	
+	grad.set_color(0, color)
+	grad.set_color(1, end_color)
 	
 	if first_unlock:
 		first_catch_label.show()
-		shine.show()
+	shine.show()
 	
 	anim.play("show")
 	
