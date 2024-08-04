@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://2j5ctcv7g6ea"]
+[gd_scene load_steps=13 format=3 uid="uid://2j5ctcv7g6ea"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_8c2rl"]
 [ext_resource type="Script" path="res://src/fisher/RandomTimer.gd" id="5_r6vef"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://csuuck2g01ftq" path="res://src/world/world.tscn" id="10_t4h8g"]
 [ext_resource type="PackedScene" uid="uid://0xnqubqqfxde" path="res://src/ui/shop.tscn" id="10_tqdot"]
 [ext_resource type="Script" path="res://src/ui/money.gd" id="11_isek8"]
+[ext_resource type="AudioStream" uid="uid://bwnrt1p1c4pp3" path="res://assets/sound/夢のつづき.mp3" id="11_uxe4g"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7rhlb"]
 bg_color = Color(0, 0, 0, 0.690196)
@@ -92,7 +93,6 @@ text = "SHOP"
 
 [node name="Fishes" type="Button" parent="CanvasLayer/Control/MarginContainer2/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 8
 text = "Fishes"
 
 [node name="FishReward" parent="CanvasLayer/Control" instance=ExtResource("5_xsm8a")]
@@ -106,9 +106,13 @@ open_button = NodePath("../MarginContainer2/VBoxContainer/PanelContainer/HBoxCon
 layout_mode = 1
 open_button = NodePath("../MarginContainer2/VBoxContainer/Fishes")
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_uxe4g")
+volume_db = -20.0
+autoplay = true
+
 [connection signal="caught_fish" from="Fisher" to="." method="_on_fisher_caught_fish"]
 [connection signal="lost_fish" from="Fisher" to="." method="_on_fisher_lost_fish"]
 [connection signal="start_fish" from="Fisher" to="." method="_on_fisher_start_fish"]
 [connection signal="timeout" from="HookedTimer" to="." method="_on_hooked_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/Control/MarginContainer/MoveAquarium" to="." method="_on_move_aquarium_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/MarginContainer2/VBoxContainer/Fishes" to="." method="_on_fishes_pressed"]

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://cvvavdkxk7llv"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://cvvavdkxk7llv"]
 
 [ext_resource type="FontFile" uid="uid://cdm66v2mq47fh" path="res://theme/TeenyTinyPixls-o2zo.ttf" id="1_pwqjw"]
 
@@ -16,6 +16,16 @@ content_margin_right = 3.0
 content_margin_bottom = 3.0
 bg_color = Color(0, 0.156, 0.24, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2erca"]
+bg_color = Color(0.3723, 0.670383, 0.73, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ns3t"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+bg_color = Color(0.105882, 0.231373, 0.521569, 1)
+
 [resource]
 default_font = ExtResource("1_pwqjw")
 default_font_size = 6
@@ -23,4 +33,5 @@ Button/styles/focus = SubResource("StyleBoxFlat_cqvq4")
 Button/styles/hover = SubResource("StyleBoxFlat_cqvq4")
 Button/styles/normal = SubResource("1")
 Button/styles/pressed = SubResource("StyleBoxFlat_cqvq4")
-Label/constants/outline_size = 3
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_2erca")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_6ns3t")

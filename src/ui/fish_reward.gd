@@ -42,3 +42,7 @@ func _unhandled_input(event):
 	if modulate == Color.WHITE and event.is_action_pressed("action"):
 		get_viewport().set_input_as_handled()
 		stop()
+
+func _gui_input(event: InputEvent) -> void:
+	if modulate == Color.WHITE and event.is_action_pressed("action"):
+		stop()

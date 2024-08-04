@@ -4,7 +4,6 @@ extends Control
 @export var chance_label: Label
 @export var panel: PanelContainer
 
-
 var fish_id: int
 
 func _ready() -> void:

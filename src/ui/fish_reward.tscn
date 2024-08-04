@@ -165,7 +165,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 theme = ExtResource("1_gjhyy")
 script = ExtResource("1_nrnqd")
 fish_icon = NodePath("CenterContainer/FishIcon")
@@ -197,6 +196,7 @@ visible = false
 material = SubResource("ShaderMaterial_bjete")
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
+mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="CenterContainer"]
 layout_mode = 2
@@ -211,6 +211,7 @@ text = "FIRST_CATCH"
 [node name="FishIcon" type="TextureRect" parent="CenterContainer"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("4_3lpjj")
 expand_mode = 3
 stretch_mode = 5

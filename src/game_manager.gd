@@ -3,6 +3,8 @@ extends Node
 signal caught_fish(id)
 signal day_changed()
 signal money_changed()
+signal bought_item(item)
+signal used_item(item)
 
 enum Rarity {
 	COMMON,
@@ -20,6 +22,17 @@ const TAG_NIGHT = "night"
 const TAG_WARM = "warm"
 const TAG_COLD = "cold"
 const TAG_CARNIVORE = "carnivore"
+
+const AQUARIUM_ITEMS = {
+	AquariumResource.Type.Boots: "res://src/shop/aquarium/boots.tres",
+	AquariumResource.Type.Bottle: "res://src/shop/aquarium/bottle.tres",
+	AquariumResource.Type.Duck: "res://src/shop/aquarium/duck.tres",
+	AquariumResource.Type.RedWeed: "res://src/shop/aquarium/red_weed.tres",
+	AquariumResource.Type.SwimRing: "res://src/shop/aquarium/swim_ring.tres",
+	AquariumResource.Type.Treasure: "res://src/shop/aquarium/treasure.tres",
+	AquariumResource.Type.Weed: "res://src/shop/aquarium/weed.tres",
+	AquariumResource.Type.WoodLog: "res://src/shop/aquarium/wood_log.tres",
+}
 
 @export_category("Fish")
 @export var base_rarity_factor := 300
@@ -74,6 +87,11 @@ var fish_data := []
 var aquarium := []
 var unlocked_fish := []
 
+var purchased_upgrades := []
+var aquarium_items := []
+
+var is_placing_item := false
+
 func _ready() -> void:
 	caught_fish.connect(func(id):
 		if not has_unlocked_fish(id):
@@ -82,6 +100,8 @@ func _ready() -> void:
 		aquarium.append(id)
 		_save_data()
 	)
+	bought_item.connect(func(item): _save_data())
+	used_item.connect(func(item): _save_data())
 	
 	_load_data()
 	
@@ -95,6 +115,10 @@ func _load_data():
 	var data = save_manager.load_from_slot(SAVE_SLOT)
 	if data:
 		cache_properties.load_data(data)
+		money = 1000000
+
+func get_aquarium_item(type: AquariumResource.Type):
+	return load(AQUARIUM_ITEMS[type])
 
 func get_rarity(fish: Dictionary):
 	var p = fish["rarity"]
@@ -123,6 +147,36 @@ func get_fish_data(fish: int):
 		print("Found more than one fish with the id %s" % fish)
 		
 	return found[0]
+
+func buy_upgrade(upgrade: UpgradeResource):
+	if money < upgrade.price:
+		print("Not enough money to buy: %s" % upgrade.resource_path)
+		return
+	
+	purchased_upgrades.append(upgrade.type)
+	self.money -= upgrade.price
+	bought_item.emit(upgrade)
+
+func buy_item(item: ShopResource):
+	if not can_buy_item(item):
+		print("Not enough money to buy: %s" % item.resource_path)
+		return
+	
+	aquarium_items.append(item.type)
+	self.money -= item.price
+	bought_item.emit(item)
+
+func can_buy_item(item: ShopResource) -> bool:
+	return money >= item.price
+
+func use_item(item: AquariumResource) -> int:
+	if not item.type in aquarium_items:
+		print("Item not in inventory: %s" % item.resource_path)
+		return 0
+	
+	aquarium_items.erase(item.type)
+	used_item.emit(item)
+	return aquarium_items.count(item.type)
 
 func sell_fish(fish: int):
 	if not fish in aquarium:

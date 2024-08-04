@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dwynrj3k8m7jy"]
+
+[ext_resource type="Script" path="res://src/aquarium_placed_item.gd" id="1_77bk1"]
+
+[node name="AquariumPlacedItem" type="Sprite2D"]
+z_index = -10
+script = ExtResource("1_77bk1")

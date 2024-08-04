@@ -20,5 +20,5 @@ script = ExtResource("3_4wwp8")
 
 [node name="CacheProperties" type="Node" parent="."]
 script = ExtResource("4_80myg")
-properties = Array[String](["unlocked_fish", "aquarium", "day_time", "money"])
+properties = Array[String](["unlocked_fish", "aquarium", "day_time", "money", "purchased_upgrades", "aquarium_items"])
 node_path = NodePath("..")

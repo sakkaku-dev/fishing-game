@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AquariumResource" load_steps=3 format=3 uid="uid://cnjtm58wvmvtn"]
+
+[ext_resource type="Script" path="res://src/shop/AquariumResource.gd" id="1_b5mcw"]
+[ext_resource type="Texture2D" uid="uid://cu4qt4yy7f2h6" path="res://assets/fishing_icons/objects/sprite_9.png" id="2_kqpa7"]
+
+[resource]
+script = ExtResource("1_b5mcw")
+type = 7
+price = 300
+sprite = ExtResource("2_kqpa7")

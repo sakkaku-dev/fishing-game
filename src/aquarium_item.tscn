@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://benisb7gnbx5x"]
+
+[ext_resource type="Texture2D" uid="uid://jsrkwnugil2v" path="res://assets/fishing_icons/gear/sprite_6.png" id="1_0d4e6"]
+[ext_resource type="Script" path="res://src/aquarium_item.gd" id="2_p3phh"]
+
+[node name="AquariumItem" type="TextureButton"]
+custom_minimum_size = Vector2(20, 20)
+texture_normal = ExtResource("1_0d4e6")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("2_p3phh")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -4.5
+offset_top = -3.0
+offset_right = 5.5
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "2x"

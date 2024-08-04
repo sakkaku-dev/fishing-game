@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="UpgradeResource" load_steps=4 format=3 uid="uid://b6kd38kruv02j"]
+
+[ext_resource type="Script" path="res://src/shop/UpgradeResource.gd" id="1_buskq"]
+[ext_resource type="Texture2D" uid="uid://jsrkwnugil2v" path="res://assets/fishing_icons/gear/sprite_6.png" id="2_7j3ac"]
+[ext_resource type="Resource" uid="uid://6txn21moh0eg" path="res://src/shop/hook_increase_03.tres" id="3_lhpos"]
+
+[resource]
+script = ExtResource("1_buskq")
+type = 0
+price = 1000
+sprite = ExtResource("2_7j3ac")
+successor = ExtResource("3_lhpos")

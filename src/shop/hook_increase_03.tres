@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="UpgradeResource" load_steps=3 format=3 uid="uid://6txn21moh0eg"]
+
+[ext_resource type="Script" path="res://src/shop/UpgradeResource.gd" id="1_ejcvc"]
+[ext_resource type="Texture2D" uid="uid://jsrkwnugil2v" path="res://assets/fishing_icons/gear/sprite_6.png" id="2_tay21"]
+
+[resource]
+script = ExtResource("1_ejcvc")
+type = 0
+price = 2000
+sprite = ExtResource("2_tay21")

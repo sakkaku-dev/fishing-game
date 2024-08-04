@@ -1,6 +1,28 @@
-[gd_scene load_steps=5 format=3 uid="uid://0xnqubqqfxde"]
+[gd_scene load_steps=22 format=3 uid="uid://0xnqubqqfxde"]
 
 [ext_resource type="PackedScene" uid="uid://dgdadij3nypqv" path="res://src/ui/dialog.tscn" id="1_47nle"]
+[ext_resource type="Script" path="res://src/ui/fishing_shop.gd" id="2_ujhcj"]
+[ext_resource type="Script" path="res://src/shop/UpgradeResource.gd" id="3_ewl6b"]
+[ext_resource type="Resource" uid="uid://c6pb1snbtenun" path="res://src/shop/bait_meat.tres" id="4_5qle0"]
+[ext_resource type="Resource" uid="uid://bf5sg32gf1p5" path="res://src/shop/fish_detector.tres" id="5_fjoua"]
+[ext_resource type="Resource" uid="uid://r62rhhac3cko" path="res://src/shop/hook_increase_01.tres" id="6_p4fyy"]
+[ext_resource type="Resource" uid="uid://0rnc8pc6pvnv" path="res://src/shop/reel_increase_01.tres" id="7_wicd4"]
+[ext_resource type="Script" path="res://src/ui/aquarium_shop.gd" id="9_6oi1x"]
+[ext_resource type="Script" path="res://src/shop/AquariumResource.gd" id="10_1yqew"]
+[ext_resource type="PackedScene" uid="uid://5toiv1c025sv" path="res://src/ui/shop_item.tscn" id="10_628na"]
+[ext_resource type="Resource" uid="uid://88qqnslb5j68" path="res://src/shop/aquarium/boots.tres" id="11_ausma"]
+[ext_resource type="Resource" uid="uid://csagx0mh1rieg" path="res://src/shop/aquarium/bottle.tres" id="12_50bmw"]
+[ext_resource type="Resource" uid="uid://dd1jgt0hexgwh" path="res://src/shop/aquarium/duck.tres" id="13_sd2ip"]
+[ext_resource type="Resource" uid="uid://bc7ib2mgi0vhi" path="res://src/shop/aquarium/red_weed.tres" id="14_18yke"]
+[ext_resource type="Resource" uid="uid://bquau3iw1pjfe" path="res://src/shop/aquarium/swim_ring.tres" id="15_xmskj"]
+[ext_resource type="Resource" uid="uid://biwowyhci340k" path="res://src/shop/aquarium/treasure.tres" id="16_sdjx6"]
+[ext_resource type="Resource" uid="uid://cnljahj20mny4" path="res://src/shop/aquarium/weed.tres" id="17_tav5u"]
+[ext_resource type="Resource" uid="uid://cnjtm58wvmvtn" path="res://src/shop/aquarium/wood_log.tres" id="18_50pav"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rxem8"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0, 0, 0, 0)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uwj15"]
 
@@ -12,11 +34,6 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rxem8"]
-content_margin_left = 5.0
-content_margin_right = 5.0
-bg_color = Color(0, 0, 0, 0)
-
 [node name="Shop" instance=ExtResource("1_47nle")]
 
 [node name="Label" parent="VBoxContainer/CenterContainer/HBoxContainer" index="0"]
@@ -24,17 +41,43 @@ text = "SHOP"
 
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer/ScrollContainer/MarginContainer" index="0"]
 layout_mode = 2
+theme_override_styles/tab_focus = SubResource("StyleBoxFlat_rxem8")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_uwj15")
 theme_override_styles/tab_selected = SubResource("StyleBoxFlat_7h815")
+theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_rxem8")
 theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_rxem8")
 tab_alignment = 1
-current_tab = 0
+current_tab = 1
 
-[node name="Fishing" type="GridContainer" parent="VBoxContainer/ScrollContainer/MarginContainer/TabContainer" index="1"]
-layout_mode = 2
-metadata/_tab_index = 0
-
-[node name="Aquarium" type="GridContainer" parent="VBoxContainer/ScrollContainer/MarginContainer/TabContainer" index="2"]
+[node name="Fishing" type="MarginContainer" parent="VBoxContainer/ScrollContainer/MarginContainer/TabContainer" index="1"]
 visible = false
 layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 3
+metadata/_tab_index = 0
+
+[node name="Fishing" type="GridContainer" parent="VBoxContainer/ScrollContainer/MarginContainer/TabContainer/Fishing" index="0"]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 9
+script = ExtResource("2_ujhcj")
+items = Array[ExtResource("3_ewl6b")]([ExtResource("6_p4fyy"), ExtResource("7_wicd4"), ExtResource("4_5qle0"), ExtResource("5_fjoua")])
+scene = ExtResource("10_628na")
+
+[node name="Aquarium" type="MarginContainer" parent="VBoxContainer/ScrollContainer/MarginContainer/TabContainer" index="2"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 metadata/_tab_index = 1
+
+[node name="Aquarium" type="GridContainer" parent="VBoxContainer/ScrollContainer/MarginContainer/TabContainer/Aquarium" index="0"]
+layout_mode = 2
+columns = 9
+script = ExtResource("9_6oi1x")
+items = Array[ExtResource("10_1yqew")]([ExtResource("11_ausma"), ExtResource("12_50bmw"), ExtResource("13_sd2ip"), ExtResource("14_18yke"), ExtResource("15_xmskj"), ExtResource("16_sdjx6"), ExtResource("17_tav5u"), ExtResource("18_50pav")])
+scene = ExtResource("10_628na")

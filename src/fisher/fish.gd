@@ -20,18 +20,22 @@ func _ready() -> void:
 	idle_timer.timeout.connect(func(): _update_move_target())
 	
 	sprite_2d.material = sprite_2d.material.duplicate()
-	control.mouse_entered.connect(func(): set_sprite_outline(true))
+	control.mouse_entered.connect(func():
+		if not GameManager.is_placing_item:
+			set_sprite_outline(true)
+	)
 	control.mouse_exited.connect(func():
 		if not selected:
 			set_sprite_outline(false)
 	)
 	control.gui_input.connect(func(ev: InputEvent):
-		if ev.is_action_pressed("click") and not selected:
+		if ev.is_action_pressed("click") and not selected and not GameManager.is_placing_item:
 			clicked.emit()
 	)
 	set_sprite_outline(false)
 	
-	await get_tree().create_timer(.05).timeout
+	await get_tree().create_timer(.1
+	).timeout
 	global_position = _new_move_target()
 	_update_move_target()
 
